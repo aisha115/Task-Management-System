@@ -6,12 +6,13 @@ table {
     top: 5px;
     right: 18px; 
     z-index: 9999; 
-    background-color: #303030;
-    color: #fff;
+    background-color: #fff;
+    color: #303030;
 }
 .csv-btn {
     display: flex;
-    width: 100%;
+    margin-left: 46%;
+    align-self: center;
     justify-content: center;
     align-items: center;
     padding: 0.65rem;

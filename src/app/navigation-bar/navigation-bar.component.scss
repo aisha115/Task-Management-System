@@ -1,8 +1,16 @@
 mat-toolbar{
     background-color: #222; 
     opacity: 0.9;
-    font-size: xx-large; 
+    font-size: x-large; 
     font-weight: 500; 
     color: #fff;
     justify-content: space-between;
+}
+.go-back-btn {
+    position: fixed;
+    top: 5px;
+    right: 18px; 
+    z-index: 9999; 
+    background-color: #fff;
+    color: #303030;
 }

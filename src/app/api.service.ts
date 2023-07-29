@@ -7,7 +7,7 @@ import { Observable, forkJoin, tap, BehaviorSubject } from 'rxjs';
 })
 
 export class ApiService {
-  private apiUrl = 'http://127.0.0.1:3003/api/v1/tasks';
+  private apiUrl = 'http://3.109.206.192:3003/api/v1/tasks';
   private autoReloadSubject = new BehaviorSubject<void>(undefined);
   autoReload$: Observable<void> = this.autoReloadSubject.asObservable();
   constructor(private http: HttpClient) { }
