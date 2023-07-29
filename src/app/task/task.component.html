@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row">
-        <div style="background-color: #058a8ae5;height: 100vw;" class="col-md-3">
+        <div style="background-color: #058a8ae5; height: 90vw;" class="col-md-3">
             <mat-card class="mt-3">
                 <form [formGroup] = "taskForm">
                     <mat-form-field appearance="fill">
@@ -23,9 +23,9 @@
                     <mat-form-field>
                         <mat-label>Priority</mat-label>
                         <mat-select formControlName="priority">
-                            <mat-option value="low">Low</mat-option>
-                            <mat-option value="medium">Medium</mat-option>
-                            <mat-option value="high">High</mat-option>
+                            <mat-option value="LOW">LOW</mat-option>
+                            <mat-option value="MEDIUM">MEDIUM</mat-option>
+                            <mat-option value="HIGH">HIGH</mat-option>
                         </mat-select>
                     </mat-form-field>
                     <div class="button-wrapper">
@@ -56,31 +56,31 @@
                               cdkDropList
                               [cdkDropListData]="tasks"
                               class="example-list"
-                              (cdkDropListDropped)="drop($event)">
-                              <div class="example-box" *ngFor="let item of tasks; let i = index" cdkDrag>
+                              (cdkDropListDropped)="drop($event, 'TO DO')">
+                              <div class="example-box" *ngFor="let item of tasks" cdkDrag>
                                 <ng-container *ngIf="item.isshow; else defaultContent">
-                                    <mat-card style="width: 100%;">
-                                      <mat-card-header>
-                                        <mat-card-title>{{item.item_title}}</mat-card-title>
-                                        <mat-card-subtitle>{{item.item_priority}}, {{item.item_duedate}}</mat-card-subtitle>
-                                      </mat-card-header>
-                                      <mat-card-content>
-                                        <p>{{item.item_description}}</p>
-                                      </mat-card-content>
-                                      <mat-card-actions class="box" align="end">
-                                          <button mat-icon-button color="warn" (click)="deleteTask(i)"><mat-icon>delete</mat-icon></button>
-                                          <button mat-icon-button color="primary" (click)="onEdit(item,i)"><mat-icon>edit</mat-icon></button>
-                                          <button mat-icon-button (click)="notShowTask(i)"><mat-icon>remove_circle_outline</mat-icon></button>
-                                      </mat-card-actions>
-                                    </mat-card>
-                                </ng-container>
-                                <ng-template #defaultContent>{{item.item_title}}
-                                    <div class="box">
-                                    <button mat-icon-button color="warn" (click)="deleteTask(i)"><mat-icon>delete</mat-icon></button>
-                                    <button mat-icon-button color="primary" (click)="onEdit(item,i)"><mat-icon>edit</mat-icon></button>
-                                    <button mat-icon-button (click)="showTask(i)"><mat-icon>add_circle_outline</mat-icon></button>
-                                    </div>
-                                </ng-template>
+                                  <mat-card style="width: 100%;">
+                                    <mat-card-header>
+                                      <mat-card-title>{{item.title}}</mat-card-title>
+                                      <mat-card-subtitle>{{item.priority}}, {{item.due_date}}</mat-card-subtitle>
+                                    </mat-card-header>
+                                    <mat-card-content>
+                                      <p>{{item.description}}</p>
+                                    </mat-card-content>
+                                    <mat-card-actions class="box" align="end">
+                                        <button mat-icon-button color="warn" (click)="onDeleteResource(item._id)"><mat-icon>delete</mat-icon></button>
+                                        <button mat-icon-button color="primary" (click)="onEdit(item)"><mat-icon>edit</mat-icon></button>
+                                        <button mat-icon-button (click)="onChangeShow(item._id)"><mat-icon>remove_circle_outline</mat-icon></button>
+                                    </mat-card-actions>
+                                  </mat-card>
+                              </ng-container>
+                              <ng-template #defaultContent>{{item.title}}
+                                  <div class="box">
+                                  <button mat-icon-button color="warn" (click)="onDeleteResource(item._id)"><mat-icon>delete</mat-icon></button>
+                                  <button mat-icon-button color="primary" (click)="onEdit(item)"><mat-icon>edit</mat-icon></button>
+                                  <button mat-icon-button (click)="onChangeShow(item._id)"><mat-icon>add_circle_outline</mat-icon></button>
+                                  </div>
+                              </ng-template>
                               </div>
                             </div>
                         </div>
@@ -103,29 +103,31 @@
                               cdkDropList
                               [cdkDropListData]="inprogress"
                               class="example-list"
-                              (cdkDropListDropped)="drop($event)">
-                              <div class="example-box" *ngFor="let item of inprogress; let i = index" cdkDrag>
+                              (cdkDropListDropped)="drop($event, 'IN PROGRESS')">
+                              <div class="example-box" *ngFor="let item of inprogress" cdkDrag>
                                 <ng-container *ngIf="item.isshow; else defaultContent">
-                                    <mat-card style="width: 100%;">
-                                      <mat-card-header>
-                                        <mat-card-title>{{item.item_title}}</mat-card-title>
-                                        <mat-card-subtitle>{{item.item_priority}}, {{item.item_duedate}}</mat-card-subtitle>
-                                      </mat-card-header>
-                                      <mat-card-content>
-                                        <p>{{item.item_description}}</p>
-                                      </mat-card-content>
-                                      <mat-card-actions class="box" align="end">
-                                          <button mat-icon-button color="warn" (click)="deleteInprogressTask(i)"><mat-icon>delete</mat-icon></button>
-                                          <button mat-icon-button (click)="notShowInprogress(i)"><mat-icon>remove_circle_outline</mat-icon></button>
-                                      </mat-card-actions>
-                                    </mat-card>
-                                </ng-container>
-                                <ng-template #defaultContent>{{item.item_title}}
-                                    <div class="box">
-                                    <button mat-icon-button color="warn" (click)="deleteInprogressTask(i)"><mat-icon>delete</mat-icon></button>
-                                    <button mat-icon-button (click)="showInprogress(i)"><mat-icon>add_circle_outline</mat-icon></button>
-                                    </div>
-                                </ng-template>
+                                  <mat-card style="width: 100%;">
+                                    <mat-card-header>
+                                      <mat-card-title>{{item.title}}</mat-card-title>
+                                      <mat-card-subtitle>{{item.priority}}, {{item.due_date}}</mat-card-subtitle>
+                                    </mat-card-header>
+                                    <mat-card-content>
+                                      <p>{{item.description}}</p>
+                                    </mat-card-content>
+                                    <mat-card-actions class="box" align="end">
+                                        <button mat-icon-button color="warn" (click)="onDeleteResource(item._id)"><mat-icon>delete</mat-icon></button>
+                                        <button mat-icon-button color="primary" (click)="onEdit(item)"><mat-icon>edit</mat-icon></button>
+                                        <button mat-icon-button (click)="onChangeShow(item._id)"><mat-icon>remove_circle_outline</mat-icon></button>
+                                    </mat-card-actions>
+                                  </mat-card>
+                              </ng-container>
+                              <ng-template #defaultContent>{{item.title}}
+                                  <div class="box">
+                                  <button mat-icon-button color="warn" (click)="onDeleteResource(item._id)"><mat-icon>delete</mat-icon></button>
+                                  <button mat-icon-button color="primary" (click)="onEdit(item)"><mat-icon>edit</mat-icon></button>
+                                  <button mat-icon-button (click)="onChangeShow(item._id)"><mat-icon>add_circle_outline</mat-icon></button>
+                                  </div>
+                              </ng-template>
                               </div>
                             </div>
                         </div>
@@ -148,31 +150,31 @@
                               cdkDropList
                               [cdkDropListData]="done"
                               class="example-list"
-                              (cdkDropListDropped)="drop($event)">
-                              <div class="example-box" *ngFor="let item of done; let i = index" cdkDrag>
+                              (cdkDropListDropped)="drop($event, 'DONE')">
+                              <div class="example-box" *ngFor="let item of done" cdkDrag>
                                 <ng-container *ngIf="item.isshow; else defaultContent">
-                                    <mat-card style="width: 100%;">
-                                      <mat-card-header>
-                                        <mat-card-title>{{item.item_title}}</mat-card-title>
-                                        <mat-card-subtitle>{{item.item_priority}}, {{item.item_duedate}}</mat-card-subtitle>
-                                      </mat-card-header>
-                                      <mat-card-content>
-                                        <p>{{item.item_description}}</p>
-                                      </mat-card-content>
-                                      <mat-card-actions class="box" align="end">
-                                          <button mat-icon-button color="warn" (click)="deleteDoneTask(i)"><mat-icon>delete</mat-icon></button>
-                                          <button mat-icon-button color="primary"><mat-icon>check_circle</mat-icon></button>
-                                          <button mat-icon-button (click)="notShowDone(i)"><mat-icon>remove_circle_outline</mat-icon></button>
-                                      </mat-card-actions>
-                                    </mat-card>
-                                </ng-container>
-                                <ng-template #defaultContent>{{item.item_title}}
-                                    <div class="box">
-                                    <button mat-icon-button color="warn" (click)="deleteDoneTask(i)"><mat-icon>delete</mat-icon></button>
-                                    <button mat-icon-button color="primary"><mat-icon>check_circle</mat-icon></button>
-                                    <button mat-icon-button (click)="showDone(i)"><mat-icon>add_circle_outline</mat-icon></button>
-                                    </div>
-                                </ng-template>
+                                  <mat-card style="width: 100%;">
+                                    <mat-card-header>
+                                      <mat-card-title>{{item.title}}</mat-card-title>
+                                      <mat-card-subtitle>{{item.priority}}, {{item.due_date}}</mat-card-subtitle>
+                                    </mat-card-header>
+                                    <mat-card-content>
+                                      <p>{{item.description}}</p>
+                                    </mat-card-content>
+                                    <mat-card-actions class="box" align="end">
+                                        <button mat-icon-button color="warn" (click)="onDeleteResource(item._id)"><mat-icon>delete</mat-icon></button>
+                                        <button mat-icon-button color="primary" (click)="onEdit(item)"><mat-icon>edit</mat-icon></button>
+                                        <button mat-icon-button (click)="onChangeShow(item._id)"><mat-icon>remove_circle_outline</mat-icon></button>
+                                    </mat-card-actions>
+                                  </mat-card>
+                              </ng-container>
+                              <ng-template #defaultContent>{{item.title}}
+                                  <div class="box">
+                                  <button mat-icon-button color="warn" (click)="onDeleteResource(item._id)"><mat-icon>delete</mat-icon></button>
+                                  <button mat-icon-button color="primary" (click)="onEdit(item)"><mat-icon>edit</mat-icon></button>
+                                  <button mat-icon-button (click)="onChangeShow(item._id)"><mat-icon>add_circle_outline</mat-icon></button>
+                                  </div>
+                              </ng-template>
                               </div>
                             </div>
                         </div>

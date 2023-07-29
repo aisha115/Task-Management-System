@@ -16,15 +16,21 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatButtonModule} from '@angular/material/button';
-import {ReactiveFormsModule } from '@angular/forms';
+import {ReactiveFormsModule} from '@angular/forms';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatMenuModule} from '@angular/material/menu';
+import {HistoryComponent} from './history/history.component';
+import { HttpClientModule } from '@angular/common/http';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { DatePipe } from '@angular/common';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationBarComponent,
-    TaskComponent
+    TaskComponent,
+    HistoryComponent
   ],
   imports: [
     BrowserModule,
@@ -41,9 +47,12 @@ import {MatMenuModule} from '@angular/material/menu';
     MatButtonModule,
     MatIconModule,
     DragDropModule,
-    MatMenuModule
+    MatMenuModule,
+    HttpClientModule,
+    MatExpansionModule,
+    MatTableModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

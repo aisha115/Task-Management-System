@@ -1,9 +1,11 @@
 export interface Itask{
-    item_title: string,
-    item_description: string,
-    item_date: Date,
-    item_duedate: string,
-    item_priority: string,
-    done: boolean,
-    isshow: boolean
+    _id:any
+    title: string,
+    description: string,
+    date: Date,
+    due_date: string,
+    priority: string,
+    status: string,
+    isshow:boolean,
+    modification:[]
 }

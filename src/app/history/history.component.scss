@@ -1,0 +1,20 @@
+table {
+    width: 100%;
+}
+.go-back-btn {
+    position: fixed;
+    top: 5px;
+    right: 18px; 
+    z-index: 9999; 
+    background-color: #303030;
+    color: #fff;
+}
+.csv-btn {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    padding: 0.65rem;
+    background-color: #303030;
+    color: #fff;
+}  
